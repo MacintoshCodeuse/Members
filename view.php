@@ -3,11 +3,11 @@ require_once 'model/Database.php';
 require_once 'model/Member.php';
 require_once 'identifiants.php';
 
+// Requête SQL : récupère la liste des membres sous forme d'objets
 $db = new database($db_name, $db_host, $db_user, $db_pass);
 $statement = 'SELECT * from members';
 $class = 'Member';
 $members = $db->query($statement, $class);
-
 
 ?>
 
@@ -15,7 +15,7 @@ $members = $db->query($statement, $class);
 <html lang="fr">
     <head>
         <meta charset="UTF-8">
-        <title>site</title>
+        <title>membres</title>
         <!-- Bootstrap CSS -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
         <!-- Bootstrap MD CSS -->
@@ -26,17 +26,44 @@ $members = $db->query($statement, $class);
     <body>
 
         <header>
-            <nav class="navbar navbar-expand-lg navbar-dark mdb-color">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="view.php">Voir</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="new.php">Nouveau membre</a>
-                    </li>
-                </ul>
-            </nav>
+            <h1>Membres</h1>
+            <a href="index.php" class="btn btn-default btn-sm">Retour</a>
         </header>
+
+        <section>
+
+            <table class="table table-bordered table-hover table-sm">
+
+                <!-- Table head -->
+                <thead class="mdb-color darken-3">
+                    <tr class="text-white">
+                        <th>Nom</th>
+                        <th>Mot de passe</th>
+                        <th>Email</th>
+                    </tr>
+                <!-- Table head -->
+                </thead>
+
+                <!-- Table body -->
+                <tbody>
+
+                    <?php
+                    foreach($members as $member) :
+                    ?>
+
+                    <tr>
+                        <td><?= $member->getUserName(); ?></td>
+                        <td><?= $member->getPassword(); ?></td>
+                        <td><?= $member->getMail(); ?></td>
+                    </tr>
+
+                    <?php endforeach; ?>
+
+                <!-- Table body -->
+                </tbody>
+            <!-- Table -->
+            </table>
+        </section>
 
         <!-- SCRIPTS-->
         <!-- JQuery -->
