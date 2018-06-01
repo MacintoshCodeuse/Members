@@ -65,6 +65,10 @@ class Database {
         $req->execute($attributs);
         return $req->rowCount();
     }
+
+    public function register($username, $password) {
+			$this->database->execute('INSERT INTO members (`username`, `password`) VALUES ("' . $username .'"," ' . $password . '")');
+	}
 }
 
 ?>

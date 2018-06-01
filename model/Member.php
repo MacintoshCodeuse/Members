@@ -1,4 +1,6 @@
 <?php
+include_once "model/Globals.php";
+require_once 'model/Database.php';
 
 class Member {
 
@@ -6,6 +8,12 @@ class Member {
     private $username;
     private $password;
     private $mail;
+    private $database;
+
+	public function __construct() {
+		global $db_name, $db_host, $db_user, $db_pass;
+		$this->database = new Database($db_name, $db_host, $db_user, $db_pass);
+  }
 
     //------------------------------
     // Getters
@@ -57,6 +65,17 @@ class Member {
     //------------------------------
     // Méthodes
     // ------------------------------
+    public function member_list() {
+			return $this->database->query('SELECT * from members', 'Member');
+	}
 
-
+	public function register($username, $password) {
+    $statement = 'INSERT INTO members (`username`, `password`) VALUES (:username, :pass)';
+    $attributs = array(
+        'username'     => $username,
+        'pass' => $password
+    );
+    $class = 'model/Member';
+    $this->database->execute($statement, $attributs, $class);
+  }
 }

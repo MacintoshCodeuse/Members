@@ -1,6 +1,11 @@
-body {
-    padding: 3em !important;
+main {
+  padding: 3em !important;
 }
+
+h1 {
+  margin: 1em;
+}
+
 form .comments {
   font-style: italic;
   font-size: 1em;
